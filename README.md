@@ -26,11 +26,16 @@ resource "aws_instance" "no_comment_here" {
   # stuff
 }
 
+# tfdoc also allows you to document your module usage
+module "my-submodule" {
+  # stuff
+}
+
 ##
 ## tfdoc discards other "orphaned" comments
 ##
 
-# We can have both comments on top
+// We can have both comments on top
 output "name" {
   description = "and within outputs and variables"
 }

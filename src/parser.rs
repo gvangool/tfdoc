@@ -53,6 +53,7 @@ fn parse_line(line: String, mut result: DocItem) -> (DocItem, Directive) {
         BlockType::Resource => parse_regular(line, result, BlockType::Resource, &parse_resource),
         BlockType::Output => parse_regular(line, result, BlockType::Output, &parse_interface),
         BlockType::Variable => parse_regular(line, result, BlockType::Variable, &parse_interface),
+        BlockType::Module => parse_regular(line, result, BlockType::Module, &parse_interface),
         BlockType::Comment => (parse_comment(line, result), Directive::Continue),
         BlockType::None => {
             // Determine whether to stop parsing this block
@@ -80,6 +81,7 @@ fn get_line_variant(line: &str) -> BlockType {
         ("resource ", BlockType::Resource),
         ("variable ", BlockType::Variable),
         ("output ", BlockType::Output),
+        ("module ", BlockType::Module),
         ("#", BlockType::Comment),
         ("//", BlockType::Comment),
     ];
@@ -169,6 +171,15 @@ mod tests {
     }
 
     #[test]
+    fn get_line_variant_module() {
+        let line = r#"module "foo-bar" {"#;
+        match get_line_variant(line) {
+            BlockType::Module => {}
+            _ => panic!("Type error! Expected Module but found something else."),
+        }
+    }
+
+    #[test]
     fn get_line_variant_output() {
         let line = r#"output "foo" {"#;
         match get_line_variant(line) {
@@ -217,6 +228,12 @@ mod tests {
     fn test_parse_resource() {
         let line = r#"resource "foo" "bar" {"#;
         assert_eq!(parse_resource(line), "foo.bar".to_string());
+    }
+
+    #[test]
+    fn test_parse_module() {
+        let line = r#"module "foo-bar" {"#;
+        assert_eq!(parse_interface(line), "foo-bar".to_string());
     }
 
     #[test]
