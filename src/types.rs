@@ -49,6 +49,7 @@ impl fmt::Display for DocItem {
 pub enum BlockType {
     Comment,
     Resource,
+    Module,
     Output,
     Variable,
     None,

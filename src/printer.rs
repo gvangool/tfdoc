@@ -11,10 +11,12 @@ pub fn render(result: &[DocItem], as_table: bool) {
     }
     if as_table {
         print_resources_table(result, "Resource", BlockType::Resource);
+        print_interface_table(result, "Modules", BlockType::Module);
         print_interface_table(result, "Input", BlockType::Variable);
         print_interface_table(result, "Output", BlockType::Output);
     } else {
         print_resources(result, "Resources", BlockType::Resource);
+        print_interface(result, "Modules", BlockType::Module);
         print_interface(result, "Inputs", BlockType::Variable);
         print_interface(result, "Outputs", BlockType::Output);
     }
