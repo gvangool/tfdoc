@@ -42,7 +42,7 @@ fn print_resources(result: &[DocItem], name: &str, variant: BlockType) {
             println!("\n## {}\n", name);
         }
         if !item.description.is_empty() || variant != BlockType::Resource {
-            println!("* `{}`: {}", item.name, item.description.join(" "));
+            println!("- `{}`: {}", item.name, item.description.join(" "));
         }
     }
 }
@@ -54,9 +54,9 @@ fn print_interface(result: &[DocItem], name: &str, variant: BlockType) {
             println!("\n## {}\n", name);
         }
         if !item.description.is_empty() {
-            println!("* `{}`: {}", item.name, item.description.join(" "));
+            println!("- `{}`: {}", item.name, item.description.join(" "));
         } else {
-            println!("* `{}`", item.name);
+            println!("- `{}`", item.name);
         }
     }
 }
@@ -103,7 +103,7 @@ pub fn print_files(files: &[PathBuf], table: bool) {
         if table {
             println!("|`{}`||", &file.to_str().unwrap());
         } else {
-            println!("* `{}`", &file.to_str().unwrap());
+            println!("- `{}`", &file.to_str().unwrap());
         }
     }
 }
